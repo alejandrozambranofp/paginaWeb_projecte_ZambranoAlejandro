@@ -14,7 +14,6 @@ $filtroAgotados   = isset($_GET['agotados']) ? 'checked' : '';
     <div class="row">
         
         <div class="col-lg-3 mb-5">
-            
             <div class="d-flex align-items-center mb-3">
                 <h5 class="fw-bold m-0">Filtrar y ordenar</h5>
                 <span class="ms-auto badge bg-light text-dark border">
@@ -35,9 +34,7 @@ $filtroAgotados   = isset($_GET['agotados']) ? 'checked' : '';
                 </div>
 
                 <div class="mb-3 p-3 rounded-3 text-white d-flex align-items-center justify-content-between" style="background-color: #E60012;">
-                    <label class="form-check-label small fw-bold lh-sm pe-2" for="checkOfertas">
-                        Mostrar solo ofertas
-                    </label>
+                    <label class="form-check-label small fw-bold lh-sm pe-2" for="checkOfertas">Mostrar solo ofertas</label>
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" name="ofertas" value="1" id="checkOfertas" style="transform: scale(1.3);" <?php echo $filtroOferta; ?>>
                     </div>
@@ -45,9 +42,7 @@ $filtroAgotados   = isset($_GET['agotados']) ? 'checked' : '';
 
                 <div class="mb-3 form-check p-3 border rounded-3 bg-white">
                     <input class="form-check-input ms-0 me-2" type="checkbox" name="agotados" id="checkAgotados" <?php echo $filtroAgotados; ?>>
-                    <label class="form-check-label text-muted small" for="checkAgotados">
-                        Ocultar productos agotados
-                    </label>
+                    <label class="form-check-label text-muted small" for="checkAgotados">Ocultar productos agotados</label>
                 </div>
 
                 <div class="d-grid gap-2 mb-4">
@@ -57,7 +52,6 @@ $filtroAgotados   = isset($_GET['agotados']) ? 'checked' : '';
                         <option value="10-20"  <?php echo ($filtroPrecio == '10-20') ? 'selected' : ''; ?>>10€ - 20€</option>
                         <option value="20-50"  <?php echo ($filtroPrecio == '20-50') ? 'selected' : ''; ?>>Más de 20€</option>
                     </select>
-
                     <select class="form-select py-2 text-muted" name="franquicia">
                         <option value="">Franquicia</option>
                         <option value="Mario"   <?php echo ($filtroFranquicia == 'Mario') ? 'selected' : ''; ?>>Super Mario</option>
@@ -65,7 +59,6 @@ $filtroAgotados   = isset($_GET['agotados']) ? 'checked' : '';
                         <option value="Pokemon" <?php echo ($filtroFranquicia == 'Pokemon') ? 'selected' : ''; ?>>Pokémon</option>
                         <option value="Kirby"   <?php echo ($filtroFranquicia == 'Kirby') ? 'selected' : ''; ?>>Kirby</option>
                     </select>
-
                     <select class="form-select py-2 text-muted" name="tipo">
                         <option value="">Tipo de postre</option>
                         <option value="Tarta"   <?php echo ($filtroTipo == 'Tarta') ? 'selected' : ''; ?>>Tartas</option>
@@ -74,27 +67,23 @@ $filtroAgotados   = isset($_GET['agotados']) ? 'checked' : '';
                     </select>
                 </div>
 
-                <button type="submit" class="btn btn-danger w-100 fw-bold py-2 shadow-sm text-uppercase">
+                <button type="submit" class="btn text-white w-100 fw-bold py-2 shadow-sm text-uppercase rounded-1" style="background-color: #E60012; letter-spacing: 1px; border: none;">
                     Aplicar filtros
                 </button>
                 
                 <div class="text-center mt-2">
-                    <a href="index.php?controlador=ControladorProducto&accion=listar" class="text-muted small text-decoration-none">
-                        Limpiar filtros
-                    </a>
+                    <a href="index.php?controlador=ControladorProducto&accion=listar" class="text-muted small text-decoration-none">Limpiar filtros</a>
                 </div>
             </form>
         </div>
 
         <div class="col-lg-9">
-            
             <div class="mb-4 border-bottom pb-2">
                 <h2 class="h2 fw-bold mb-1">Catálogo Sweet Kingdom</h2>
                 <p class="text-muted small">Explora nuestros postres inspirados en Nintendo.</p>
             </div>
 
             <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
-                
                 <?php if (!empty($productos)): ?>
                     <?php foreach ($productos as $item): ?>
                         <div class="col">
@@ -104,12 +93,8 @@ $filtroAgotados   = isset($_GET['agotados']) ? 'checked' : '';
                                     <?php if(isset($item['oferta']) && $item['oferta'] == 1): ?>
                                         <span class="badge bg-danger position-absolute top-0 start-0 m-3 shadow-sm">OFERTA</span>
                                     <?php endif; ?>
-
                                     <a href="index.php?controlador=ControladorProducto&accion=ver&id=<?php echo $item['id_producto']; ?>" class="d-block h-100 d-flex align-items-center justify-content-center">
-                                        <img src="assets/imagenes/<?php echo $item['imagen']; ?>" 
-                                             class="img-fluid" 
-                                             style="max-height: 160px; object-fit: contain;"
-                                             alt="<?php echo $item['nombre']; ?>">
+                                        <img src="assets/imagenes/<?php echo $item['imagen']; ?>" class="img-fluid" style="max-height: 160px; object-fit: contain;" alt="<?php echo $item['nombre']; ?>">
                                     </a>
                                 </div>
 
@@ -126,11 +111,21 @@ $filtroAgotados   = isset($_GET['agotados']) ? 'checked' : '';
                                         </a>
                                     </h5>
                                     
-                                    <div class="d-flex justify-content-between align-items-end border-top pt-3 mt-auto">
-                                        <span class="small text-muted">Precio ud.</span>
-                                        <span class="fw-bold fs-5 text-danger">
-                                            <?php echo number_format($item['precio'], 2); ?>€
-                                        </span>
+                                    <div class="mt-auto border-top pt-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <span class="small text-muted">Precio</span>
+                                            <span class="fw-bold fs-5" style="color: #E60012;">
+                                                <?php echo number_format($item['precio'], 2); ?>€
+                                            </span>
+                                        </div>
+
+                                        <a href="#" 
+                                           onclick="agregarCarrito(event, 'index.php?controlador=ControladorCarrito&accion=añadir&id=<?php echo $item['id_producto']; ?>')"
+                                           class="btn text-white w-100 rounded-1 px-4 py-2 fw-bold text-uppercase text-center btn-nintendo-add" 
+                                           style="background-color: #E60012; font-size: 0.8rem; letter-spacing: 1px; border: none; text-decoration: none;">
+                                            AÑADIR
+                                        </a>
+
                                     </div>
                                 </div>
                             </div>
@@ -146,8 +141,43 @@ $filtroAgotados   = isset($_GET['agotados']) ? 'checked' : '';
                         </div>
                     </div>
                 <?php endif; ?>
-
             </div>
         </div>
     </div>
 </div>
+
+<script>
+function agregarCarrito(e, url) {
+    // 1. Evitamos que el navegador siga el enlace normalmente
+    e.preventDefault();
+    
+    // 2. Obtenemos el botón que se pulsó para hacer un efecto visual (opcional)
+    let boton = e.currentTarget;
+    let textoOriginal = boton.innerHTML;
+    
+    boton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+    boton.style.opacity = "0.7";
+
+    // 3. Enviamos la petición por detrás (AJAX)
+    fetch(url)
+        .then(response => {
+            // No nos importa el contenido de la respuesta (la redirección), solo que se haya completado
+            
+            // 4. Cambiamos el texto a "¡Añadido!" momentáneamente
+            boton.innerHTML = '¡AÑADIDO!';
+            boton.style.backgroundColor = '#198754'; // Verde éxito
+            
+            // 5. Esperamos medio segundo y recargamos la página
+            // (Esto es necesario para que se actualice el número del carrito en tu menú de arriba)
+            setTimeout(() => {
+                window.location.reload(); 
+            }, 500);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            boton.innerHTML = textoOriginal;
+            boton.style.opacity = "1";
+            alert("Hubo un error al añadir el producto.");
+        });
+}
+</script>

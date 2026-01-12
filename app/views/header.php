@@ -45,30 +45,30 @@ $usuario = $_SESSION['usuario_logueado'] ?? null;
                 </div>
             </nav>
 
-            <nav class="iconos_usuario_carrito">
-                <div class="logo_carrito d-flex align-items-center gap-3">
+            <nav class="iconos_usuario_carrito pe-3"> <div class="d-flex align-items-center justify-content-end gap-1"> 
                     
-                    <!-- PARTE 1: USUARIO -->
-                    <div class="d-flex align-items-center gap-2">
+                    <div class="d-flex align-items-center gap-1 border-end pe-2 me-1" style="border-color: rgba(255,255,255,0.3) !important;">
                         <?php if ($usuario): ?>
-                            <span class="small text-white fw-bold">Hola, <?php echo htmlspecialchars($usuario['nombre']); ?></span>
-                            <a href="<?php echo $ruta_base; ?>/index.php?controlador=ControladorAutenticacion&accion=logout" title="Cerrar Sesión">
-                                <i class="bi bi-box-arrow-right text-white" style="font-size: 1.4rem;"></i>
+                            <span class="text-white small fw-bold text-truncate" style="max-width: 85px;">
+                                Hola, <?= $usuario['nombre'] ?>
+                            </span>
+                            
+                            <a href="<?= $ruta_base ?>/index.php?controlador=ControladorAutenticacion&accion=logout" class="text-white ms-1">
+                                <i class="bi bi-box-arrow-right" style="font-size: 1.1rem;"></i>
                             </a>
                         <?php else: ?>
-                            <a href="<?php echo $ruta_base; ?>/index.php?controlador=ControladorAutenticacion&accion=mostrarLogin" title="Iniciar Sesión">
-                                <img class="header-carrito-icon" src="<?php echo $ruta_base; ?>/assets/imagenes/icono_usuario.png" alt="Usuario" width="28px">
+                            <a href="<?= $ruta_base ?>/index.php?controlador=ControladorAutenticacion&accion=mostrarLogin">
+                                <img src="<?= $ruta_base ?>/assets/imagenes/icono_usuario.png" alt="Login" width="24">
                             </a>
                         <?php endif; ?>
                     </div>
 
-                    <!-- PARTE 2: CARRITO ACTUALIZADO -->
                     <div class="position-relative">
-                        <a href="<?php echo $ruta_base; ?>/index.php?controlador=ControladorCarrito&accion=ver">
-                            <img class="header-carrito-icon" src="<?php echo $ruta_base; ?>/assets/imagenes/carrito.png" alt="Carrito" width="30px">
+                        <a href="<?= $ruta_base ?>/index.php?controlador=ControladorCarrito&accion=ver">
+                            <img src="<?= $ruta_base ?>/assets/imagenes/carrito.png" alt="Carrito" width="26">
                             <?php if (!empty($_SESSION['carrito'])): ?>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem;">
-                                    <?php echo array_sum($_SESSION['carrito']); ?>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark border border-light" style="font-size: 0.6rem;">
+                                    <?= array_sum($_SESSION['carrito']) ?>
                                 </span>
                             <?php endif; ?>
                         </a>
