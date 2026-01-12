@@ -1,0 +1,158 @@
+/*style.css*/
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    padding: 0;
+    overflow-x: hidden;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.header_top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #E70000;
+}
+
+.header-logo {
+    width: 200px; 
+    height: auto;
+}
+
+.navbar {
+    padding: 0;
+}
+
+.botonlupa{
+    border: transparent;
+    background-color: white;
+    margin-right: 20px;
+}
+.buscador{
+    text-align: center;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    margin: 20px;
+    width: 700px;
+    background-color: white;
+}
+.form-control{
+    border: transparent;
+    padding: 10;
+}
+
+.container-fluid{
+    width: 100%;
+    padding: 0;
+}
+.input-group {
+    max-width: 600px;
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.logo-container{
+    margin: 20px;
+}
+
+.logo_carrito{
+    margin: 20px;
+    width: 100px;
+}
+
+.logo_carrito a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.header_bottom{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-direction: row;
+    background-color: #E70000;
+    width: 100%;
+}
+
+.header_bottom a{
+    text-decoration: none;
+    color: white;
+}
+
+.info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:60px;
+}
+
+.entrega{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.entrega p{
+    margin: 0;
+}
+.camion_entrega{
+    margin: 20px;
+    width: 20px;
+    margin: 0;
+}
+
+.icono_exclusivo{
+    margin: 20px;
+    width: 20px;
+    margin: 0;
+}
+
+/* Ajuste para que el contenido no se pegue a los bordes extremos de la pantalla */
+        .header_top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 5%; /* Añadimos un 5% de margen a los lados */
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .buscador {
+            flex: 1;
+            min-width: 200px;
+            max-width: 600px; /* Evita que el buscador sea infinitamente largo */
+            margin: 0 20px;
+        }
+
+        .iconos_usuario_carrito {
+            display: flex;
+            align-items: center;
+            min-width: fit-content;
+        }
+
+        /* En pantallas pequeñas, el buscador baja para no apretar al carrito */
+        @media (max-width: 768px) {
+            .header_top {
+                padding: 10px 15px;
+            }
+            .buscador {
+                order: 3;
+                margin: 10px 0 0 0;
+                max-width: 100%;
+            }
+        }

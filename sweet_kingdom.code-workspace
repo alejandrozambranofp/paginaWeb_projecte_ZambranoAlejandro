@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "sweet_kingdom"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "paginaWeb_projecte_ZambranoAlejandro"
+	}
+}

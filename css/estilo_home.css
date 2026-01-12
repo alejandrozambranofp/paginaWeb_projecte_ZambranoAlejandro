@@ -1,0 +1,42 @@
+
+.text-red, .text-pink, .price-tag { 
+    color: #E60012 !important; 
+}
+
+.bg-red, .bg-pink, .badge, .btn-nintendo-red, .btn-nintendo-pink { 
+    background-color: #E60012 !important; 
+}
+
+
+.price-tag {
+    color: #E60012 !important;
+    font-weight: 900 !important; 
+    font-size: 2rem !important; 
+    display: block;
+    margin-bottom: 10px;
+    font-family: 'Arial Black', Gadget, sans-serif;
+    letter-spacing: -1px;
+}
+
+
+.btn-nintendo-red, .btn-nintendo-pink {
+    background-color: #E60012 !important;
+    color: #ffffff !important;
+    border: none !important;
+    font-weight: bold !important;
+    transition: background 0.3s ease;
+}
+
+.btn-nintendo-red:hover, .btn-nintendo-pink:hover {
+    background-color: #c40010 !important; 
+}
+
+
+.product-card {
+    border: 1px solid #eee !important;
+}
+
+.product-card:hover {
+    border-color: #E60012 !important; 
+    box-shadow: 0 10px 20px rgba(230, 0, 18, 0.1) !important;
+}
