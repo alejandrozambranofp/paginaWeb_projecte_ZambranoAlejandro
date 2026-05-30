@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Temps de generació: 30-05-2026 a les 10:05:24
+-- Temps de generació: 30-05-2026 a les 10:21:31
 -- Versió del servidor: 10.4.32-MariaDB
 -- Versió de PHP: 8.2.12
 
@@ -101,7 +101,10 @@ INSERT INTO `logs` (`id_log`, `usuario`, `accion`, `fecha`) VALUES
 (6, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 1 a Preparando', '2026-05-30 10:02:10'),
 (7, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 1 a Preparando', '2026-05-30 10:02:14'),
 (8, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 1 a Preparando', '2026-05-30 10:02:16'),
-(9, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 1 a Preparando', '2026-05-30 10:02:19');
+(9, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 1 a Preparando', '2026-05-30 10:02:19'),
+(10, 'alejandro@gmail.com', 'Producto creado: alejandro', '2026-05-30 10:14:07'),
+(11, 'alejandro@gmail.com', 'Producto eliminado con ID 13', '2026-05-30 10:14:15'),
+(12, 'alejandro@gmail.com', 'Producto actualizado con ID 11', '2026-05-30 10:16:42');
 
 -- --------------------------------------------------------
 
@@ -157,7 +160,7 @@ INSERT INTO `producto` (`id_producto`, `nombre`, `descripcion`, `precio`, `image
 (8, 'The Legend of Zelda; Tears of the Kingdom Dessert', 'Postre místico con capas de chocolate blanco y té matcha.', 7.00, 'zeldatotkdessert.png', 'Postres', 0, 10, NULL),
 (9, 'Power up Dessert Pack', 'Pack variado para recuperar energías: incluye donuts y brownies.', 15.00, 'powerupdessert.png', 'Ofertas', 0, 10, NULL),
 (10, 'Animal Crossing Cozy cupcakes Pack', 'Pack de 6 cupcakes hogareños con decoraciones de frutas.', 18.00, 'animalcrossingcozycupcakes.png', 'Cupcakes', 0, 10, NULL),
-(11, 'Link\'s Sweet Adventure Pack', 'El pack definitivo para aventureros con todos nuestros dulces estrella.', 29.90, 'linksweetadventure.png', 'Ofertas', 0, 10, NULL);
+(11, 'Link\'s Sweet Adventure Pack', 'El pack definitivo para aventureros con todos nuestros dulces estrella.', 29.95, 'linksweetadventure.png', 'Ofertas', 0, 10, '');
 
 --
 -- Índexs per a les taules bolcades
@@ -216,7 +219,7 @@ ALTER TABLE `detalle_pedido`
 -- AUTO_INCREMENT per la taula `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT per la taula `pedido`
@@ -228,7 +231,7 @@ ALTER TABLE `pedido`
 -- AUTO_INCREMENT per la taula `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restriccions per a les taules bolcades
