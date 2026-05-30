@@ -78,6 +78,33 @@ class ModeloAdmin {
         ]);
     }
 
+    public function actualizarProducto($datos) {
+        $sql = "UPDATE producto
+                SET nombre = :nombre,
+                    descripcion = :descripcion,
+                    precio = :precio,
+                    imagen = :imagen,
+                    categoria = :categoria,
+                    stock = :stock,
+                    oferta = :oferta,
+                    franquicia = :franquicia
+                WHERE id_producto = :id_producto";
+
+        $stmt = $this->db->prepare($sql);
+
+        return $stmt->execute([
+            ':id_producto' => $datos['id_producto'],
+            ':nombre' => $datos['nombre'],
+            ':descripcion' => $datos['descripcion'],
+            ':precio' => $datos['precio'],
+            ':imagen' => $datos['imagen'],
+            ':categoria' => $datos['categoria'],
+            ':stock' => $datos['stock'],
+            ':oferta' => $datos['oferta'],
+            ':franquicia' => $datos['franquicia']
+        ]);
+    }
+
     public function eliminarProducto($id_producto) {
         $stmt = $this->db->prepare("DELETE FROM producto WHERE id_producto = ?");
         return $stmt->execute([$id_producto]);

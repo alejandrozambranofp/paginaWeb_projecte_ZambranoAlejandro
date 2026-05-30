@@ -68,7 +68,7 @@
                 <div class="card-header bg-pink text-white py-3">
                     <h5 class="mb-0 fw-bold">Todos los pedidos</h5>
                 </div>
-                <div class="card-body p-4">`
+                <div class="card-body p-4">
                     <div class="d-flex justify-content-end align-items-center gap-2 mb-3">
                         <label for="currencySelect" class="fw-bold small mb-0">Moneda</label>
                         <select id="currencySelect" class="form-select form-select-sm" style="max-width: 140px;">
@@ -218,9 +218,25 @@
                                         <td><?php echo $producto['stock'] ?? 0; ?></td>
                                         <td><?php echo !empty($producto['oferta']) ? 'Sí' : 'No'; ?></td>
                                         <td class="text-end">
+                                            <button type="button"
+                                                    class="btn btn-sm btn-outline-dark me-1 btn-editar-producto"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalEditarProducto"
+                                                    data-id="<?php echo $producto['id_producto']; ?>"
+                                                    data-nombre="<?php echo htmlspecialchars($producto['nombre']); ?>"
+                                                    data-descripcion="<?php echo htmlspecialchars($producto['descripcion'] ?? ''); ?>"
+                                                    data-precio="<?php echo $producto['precio']; ?>"
+                                                    data-imagen="<?php echo htmlspecialchars($producto['imagen'] ?? ''); ?>"
+                                                    data-categoria="<?php echo htmlspecialchars($producto['categoria'] ?? ''); ?>"
+                                                    data-stock="<?php echo $producto['stock'] ?? 0; ?>"
+                                                    data-oferta="<?php echo !empty($producto['oferta']) ? '1' : '0'; ?>"
+                                                    data-franquicia="<?php echo htmlspecialchars($producto['franquicia'] ?? ''); ?>">
+                                                Editar
+                                            </button>
+
                                             <a href="index.php?controlador=ControladorAdmin&accion=eliminarProducto&id=<?php echo $producto['id_producto']; ?>"
-                                               class="btn btn-sm btn-outline-danger"
-                                               onclick="return confirm('¿Eliminar este producto?');">
+                                            class="btn btn-sm btn-outline-danger"
+                                            onclick="return confirm('¿Eliminar este producto?');">
                                                 Eliminar
                                             </a>
                                         </td>
@@ -278,5 +294,69 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalEditarProducto" tabindex="-1" aria-labelledby="modalEditarProductoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="index.php?controlador=ControladorAdmin&accion=actualizarProducto" method="POST">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fw-bold" id="modalEditarProductoLabel">Editar producto</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
 
+                <div class="modal-body">
+                    <input type="hidden" name="id_producto" id="edit_id_producto">
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Nombre</label>
+                            <input type="text" name="nombre" id="edit_nombre" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Precio</label>
+                            <input type="number" name="precio" id="edit_precio" class="form-control" step="0.01" min="0" required>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Stock</label>
+                            <input type="number" name="stock" id="edit_stock" class="form-control" min="0">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Categoría</label>
+                            <input type="text" name="categoria" id="edit_categoria" class="form-control">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Franquicia</label>
+                            <input type="text" name="franquicia" id="edit_franquicia" class="form-control">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Imagen</label>
+                            <input type="text" name="imagen" id="edit_imagen" class="form-control">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Descripción</label>
+                            <input type="text" name="descripcion" id="edit_descripcion" class="form-control">
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="oferta" id="edit_oferta">
+                                <label class="form-check-label" for="edit_oferta">Producto en oferta</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-nintendo-pink rounded-pill px-4">Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script src="js/admin_panel.js"></script>

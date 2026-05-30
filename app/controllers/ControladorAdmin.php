@@ -71,6 +71,35 @@ class ControladorAdmin {
         exit();
     }
 
+    public function actualizarProducto() {
+        $this->comprobarAdmin();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $datos = [
+                'id_producto' => (int) ($_POST['id_producto'] ?? 0),
+                'nombre' => trim($_POST['nombre'] ?? ''),
+                'descripcion' => trim($_POST['descripcion'] ?? ''),
+                'precio' => (float) ($_POST['precio'] ?? 0),
+                'imagen' => trim($_POST['imagen'] ?? 'logo_header.png'),
+                'categoria' => trim($_POST['categoria'] ?? 'Postres'),
+                'stock' => (int) ($_POST['stock'] ?? 0),
+                'oferta' => isset($_POST['oferta']) ? 1 : 0,
+                'franquicia' => trim($_POST['franquicia'] ?? '')
+            ];
+
+            if ($datos['id_producto'] > 0 && $datos['nombre'] !== '' && $datos['precio'] > 0) {
+                $this->modelo->actualizarProducto($datos);
+                $this->modelo->registrarLog(
+                    $_SESSION['usuario_logueado']['email'],
+                    "Producto actualizado con ID " . $datos['id_producto']
+                );
+            }
+        }
+
+        header("Location: index.php?controlador=ControladorAdmin&accion=panel");
+        exit();
+    }
+
     public function eliminarProducto() {
         $this->comprobarAdmin();
 

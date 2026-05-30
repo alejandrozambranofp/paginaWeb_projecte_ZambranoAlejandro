@@ -11,6 +11,7 @@ class AdminPanel {
         this.createSummary();
         this.bindTableSearch();
         this.bindCurrencySelect();
+        this.bindProductEditModal();
     }
 
     restoreActiveTab() {
@@ -135,6 +136,24 @@ class AdminPanel {
 
         select.addEventListener('change', updateMoney);
         updateMoney();
+    }
+
+    bindProductEditModal() {
+        const buttons = document.querySelectorAll('.btn-editar-producto');
+
+        buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+                document.getElementById('edit_id_producto').value = button.dataset.id;
+                document.getElementById('edit_nombre').value = button.dataset.nombre;
+                document.getElementById('edit_descripcion').value = button.dataset.descripcion;
+                document.getElementById('edit_precio').value = button.dataset.precio;
+                document.getElementById('edit_imagen').value = button.dataset.imagen;
+                document.getElementById('edit_categoria').value = button.dataset.categoria;
+                document.getElementById('edit_stock').value = button.dataset.stock;
+                document.getElementById('edit_franquicia').value = button.dataset.franquicia;
+                document.getElementById('edit_oferta').checked = button.dataset.oferta === '1';
+            });
+        });
     }
 }
 
