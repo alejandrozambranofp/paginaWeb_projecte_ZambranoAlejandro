@@ -63,13 +63,9 @@ class ModeloProducto {
         }
 
         // --- Filtro de Ofertas (CORREGIDO) ---
-        // He comentado esto para que NO DE ERROR FATAL.
-        // Descoméntalo solo si averiguas cómo se llama la columna en tu BD (ej: oferta, promocion...)
-        /*
         if (!empty($filtros['ofertas'])) {
-            $sql .= " AND oferta = 1"; 
+            $sql .= " AND oferta = 1";
         }
-        */
 
         // --- Filtro de Agotados ---
         // Asumo que tienes una columna 'stock'. Si no, comenta esto también.
