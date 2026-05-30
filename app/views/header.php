@@ -49,13 +49,15 @@ $usuario = $_SESSION['usuario_logueado'] ?? null;
                     
                     <div class="d-flex align-items-center gap-1 border-end pe-2 me-1" style="border-color: rgba(255,255,255,0.3) !important;">
                         <?php if ($usuario): ?>
-                            <span class="text-white small fw-bold text-truncate" style="max-width: 85px;">
-                                Hola, <?= $usuario['nombre'] ?>
+                            <span class="text-white small">
+                                Hola, <?php echo htmlspecialchars($usuario['nombre']); ?>
                             </span>
-                            
-                            <a href="<?= $ruta_base ?>/index.php?controlador=ControladorAutenticacion&accion=logout" class="text-white ms-1">
-                                <i class="bi bi-box-arrow-right" style="font-size: 1.1rem;"></i>
+
+                            <a href="<?= $ruta_base ?>/index.php?controlador=ControladorUsuario&accion=perfil" class="text-white ms-2 small fw-bold text-decoration-none">
+                                Mi cuenta
                             </a>
+
+                            <a href="<?= $ruta_base ?>/index.php?controlador=ControladorAutenticacion&accion=logout" class="text-white ms-1">
                         <?php else: ?>
                             <a href="<?= $ruta_base ?>/index.php?controlador=ControladorAutenticacion&accion=mostrarLogin">
                                 <img src="<?= $ruta_base ?>/assets/imagenes/icono_usuario.png" alt="Login" width="24">

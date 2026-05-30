@@ -57,4 +57,88 @@ class ModeloCliente {
             return false;
         }
     }
+
+        public function obtenerClientePorId($id_cliente) {
+        try {
+            $sql = "SELECT id_cliente, nombre, email FROM cliente WHERE id_cliente = :id_cliente";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':id_cliente', $id_cliente, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error al obtener cliente: " . $e->getMessage());
+            return null;
+        }
+    }
+
+    public function actualizarCliente($id_cliente, $nombre, $email, $password = null) {
+        try {
+            if (!empty($password)) {
+                $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+                $sql = "UPDATE cliente 
+                        SET nombre = :nombre, email = :email, password = :password 
+                        WHERE id_cliente = :id_cliente";
+
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':password', $password_hash, PDO::PARAM_STR);
+            } else {
+                $sql = "UPDATE cliente 
+                        SET nombre = :nombre, email = :email 
+                        WHERE id_cliente = :id_cliente";
+
+                $stmt = $this->db->prepare($sql);
+            }
+
+            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->bindParam(':id_cliente', $id_cliente, PDO::PARAM_INT);
+
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Error al actualizar cliente: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function obtenerPedidosCliente($id_cliente) {
+        try {
+            $sql = "SELECT id_pedido, fecha, total, estado 
+                    FROM pedido 
+                    WHERE id_cliente = :id_cliente 
+                    ORDER BY fecha DESC";
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':id_cliente', $id_cliente, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error al obtener pedidos del cliente: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public function obtenerDetallePedido($id_pedido, $id_cliente) {
+        try {
+            $sql = "SELECT dp.id_detalle, dp.id_pedido, dp.id_producto, dp.cantidad,
+                           dp.precio_unitario, dp.subtotal, p.nombre, p.imagen
+                    FROM detalle_pedido dp
+                    INNER JOIN pedido pe ON dp.id_pedido = pe.id_pedido
+                    INNER JOIN producto p ON dp.id_producto = p.id_producto
+                    WHERE dp.id_pedido = :id_pedido
+                    AND pe.id_cliente = :id_cliente";
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':id_pedido', $id_pedido, PDO::PARAM_INT);
+            $stmt->bindParam(':id_cliente', $id_cliente, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error al obtener detalle del pedido: " . $e->getMessage());
+            return [];
+        }
+    }
 }
