@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Temps de generació: 30-05-2026 a les 09:10:33
+-- Temps de generació: 30-05-2026 a les 10:05:24
 -- Versió del servidor: 10.4.32-MariaDB
 -- Versió de PHP: 8.2.12
 
@@ -31,23 +31,23 @@ CREATE TABLE `cliente` (
   `id_cliente` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `rol` varchar(20) NOT NULL DEFAULT 'usuario'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Bolcament de dades per a la taula `cliente`
 --
 
-INSERT INTO `cliente` (`id_cliente`, `nombre`, `email`, `password`) VALUES
-(27, 'Alejandro', 'alejandrozambranofp@ibf.cat', 'informatica_1'),
-(28, 'Alejandro', 'zambranoalecs@gmail.com', '$2y$10$EKuCsS8RCbrM9'),
-(29, 'Alejandro', 'alejandrozt2704@gmail.com', '$2y$10$kOuvTgzGpMXkV'),
-(30, 'Alejandro', 'lalejandrozt@gmail.com', '$2y$10$WnzNz.X7HnQQA'),
-(31, 'Alejandrio', 'zalejandro048@gmail.com', '$2y$10$fDS36g9EJbHFp'),
-(32, 'Alejandro', 'ttvzambranoalecs@gmail.com', '$2y$10$JL83uslr47typltFRlMAGulHq7.4vopZss8zGoFRcV4Aulr0b.9/y'),
-(33, 'Alejandro', 'joseangle@gmail.com', '$2y$10$D47x5NDEjI0M/HtLUXx.x.RlozxK5CrZJrjUk5gxZiqpzWTpz6ddO'),
-(34, 'eurillosgay', 'eurillosnoob@gmail.com', '$2y$10$jSgzmq9LCgy36KdtQlXygOaOzmVILxeEGS0ywGsJWwBpe1wG3NdMa'),
-(35, 'alejandro', 'alejandro@gmail.com', '$2y$10$SGScZlCVeB9.ILfqeM.R6uw5X/PZXyqak/jQq8Z9X3TEs7p0oe.U2');
+INSERT INTO `cliente` (`id_cliente`, `nombre`, `email`, `password`, `rol`) VALUES
+(27, 'Alejandro', 'alejandrozambranofp@ibf.cat', 'informatica_1', 'usuario'),
+(28, 'Alejandro', 'zambranoalecs@gmail.com', '$2y$10$EKuCsS8RCbrM9', 'usuario'),
+(29, 'Alejandro', 'alejandrozt2704@gmail.com', '$2y$10$kOuvTgzGpMXkV', 'usuario'),
+(30, 'Alejandro', 'lalejandrozt@gmail.com', '$2y$10$WnzNz.X7HnQQA', 'usuario'),
+(31, 'Alejandrio', 'zalejandro048@gmail.com', '$2y$10$fDS36g9EJbHFp', 'usuario'),
+(32, 'Alejandro', 'ttvzambranoalecs@gmail.com', '$2y$10$JL83uslr47typltFRlMAGulHq7.4vopZss8zGoFRcV4Aulr0b.9/y', 'usuario'),
+(33, 'Alejandro', 'joseangle@gmail.com', '$2y$10$D47x5NDEjI0M/HtLUXx.x.RlozxK5CrZJrjUk5gxZiqpzWTpz6ddO', 'usuario'),
+(35, 'Alejandro Zambrano', 'alejandro@gmail.com', '$2y$10$SGScZlCVeB9.ILfqeM.R6uw5X/PZXyqak/jQq8Z9X3TEs7p0oe.U2', 'admin');
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,15 @@ CREATE TABLE `logs` (
 --
 
 INSERT INTO `logs` (`id_log`, `usuario`, `accion`, `fecha`) VALUES
-(1, 'alejandro@gmail.com', 'Pedido confirmado con ID 1', '2026-05-30 09:07:01');
+(1, 'alejandro@gmail.com', 'Pedido confirmado con ID 1', '2026-05-30 09:07:01'),
+(2, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 1 a Preparando', '2026-05-30 09:41:37'),
+(3, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 1 a Preparando', '2026-05-30 09:41:40'),
+(4, 'alejandro@gmail.com', 'Producto creado: Producto Test Admin', '2026-05-30 09:43:06'),
+(5, 'alejandro@gmail.com', 'Producto eliminado con ID 12', '2026-05-30 09:44:24'),
+(6, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 1 a Preparando', '2026-05-30 10:02:10'),
+(7, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 1 a Preparando', '2026-05-30 10:02:14'),
+(8, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 1 a Preparando', '2026-05-30 10:02:16'),
+(9, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 1 a Preparando', '2026-05-30 10:02:19');
 
 -- --------------------------------------------------------
 
@@ -114,7 +122,7 @@ CREATE TABLE `pedido` (
 --
 
 INSERT INTO `pedido` (`id_pedido`, `id_cliente`, `fecha`, `total`, `estado`) VALUES
-(1, 35, '2026-05-30 09:07:01', 110.40, 'Confirmado');
+(1, 35, '2026-05-30 09:07:01', 110.40, 'Preparando');
 
 -- --------------------------------------------------------
 
@@ -208,7 +216,7 @@ ALTER TABLE `detalle_pedido`
 -- AUTO_INCREMENT per la taula `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT per la taula `pedido`
@@ -220,7 +228,7 @@ ALTER TABLE `pedido`
 -- AUTO_INCREMENT per la taula `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restriccions per a les taules bolcades
