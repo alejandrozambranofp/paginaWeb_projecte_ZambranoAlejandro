@@ -33,6 +33,13 @@ $ultimoPedido = !empty($pedidos) ? $pedidos[0] : null;
                     <h5 class="mb-0 fw-bold">Datos personales</h5>
                 </div>
                 <div class="card-body p-4">
+                    <div class="mb-4">
+                        <a href="index.php?controlador=ControladorAutenticacion&accion=logout"
+                           class="btn btn-outline-danger w-100 rounded-pill">
+                            Cerrar sesión
+                        </a>
+                    </div>
+                    
                     <form action="index.php?controlador=ControladorUsuario&accion=actualizar" method="POST">
                         <div class="mb-3">
                             <label for="nombre" class="form-label fw-bold">Nombre</label>

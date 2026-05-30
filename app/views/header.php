@@ -57,6 +57,12 @@ $usuario = $_SESSION['usuario_logueado'] ?? null;
                                 Mi cuenta
                             </a>
 
+                            <?php if (isset($usuario['rol']) && $usuario['rol'] === 'admin'): ?>
+                                <a href="<?= $ruta_base ?>/index.php?controlador=ControladorAdmin&accion=panel" class="text-white ms-2 small fw-bold text-decoration-none">
+                                    Admin
+                                </a>
+                            <?php endif; ?>
+
                             <a href="<?= $ruta_base ?>/index.php?controlador=ControladorAutenticacion&accion=logout" class="text-white ms-1">
                         <?php else: ?>
                             <a href="<?= $ruta_base ?>/index.php?controlador=ControladorAutenticacion&accion=mostrarLogin">

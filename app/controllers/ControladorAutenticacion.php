@@ -84,7 +84,8 @@ class ControladorAutenticacion {
                 $_SESSION['usuario_logueado'] = [
                     'id_cliente' => $cliente['id_cliente'],
                     'nombre' => $cliente['nombre'],
-                    'email' => $cliente['email']
+                    'email' => $cliente['email'],
+                    'rol' => $cliente['rol']
                 ];
                 header('Location: index.php');
                 exit();

@@ -15,7 +15,7 @@ class ModeloCliente {
     public function obtenerClientePorEmail($email) {
         try {
             // Seleccionamos los campos necesarios para la sesión y la verificación de password
-            $sql = "SELECT id_cliente, nombre, email, password FROM cliente WHERE email = :email";
+            $sql = "SELECT id_cliente, nombre, email, password, rol FROM cliente WHERE email = :email";
             
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
