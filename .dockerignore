@@ -1,0 +1,7 @@
+.git
+.gitignore
+sweet_kingdom.zip
+*.zip
+*.rar
+*.code-workspace
+node_modules

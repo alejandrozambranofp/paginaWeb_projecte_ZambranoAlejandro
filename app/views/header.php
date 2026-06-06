@@ -1,5 +1,6 @@
 <?php
-$ruta_base = '/paginaWeb_projecte_ZambranoAlejandro';
+$scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+$ruta_base = str_replace('/index.php', '', $scriptName);
 $usuario = $_SESSION['usuario_logueado'] ?? null;
 $totalCarrito = !empty($_SESSION['carrito']) ? array_sum($_SESSION['carrito']) : 0;
 ?>
