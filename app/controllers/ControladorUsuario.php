@@ -1,9 +1,5 @@
 <?php
-/**
- * ControladorUsuario.php
- * Gestiona el panel personal del usuario.
- */
-
+// Controlador del perfil de usuario.
 require_once 'app/models/ModeloCliente.php';
 
 class ControladorUsuario {

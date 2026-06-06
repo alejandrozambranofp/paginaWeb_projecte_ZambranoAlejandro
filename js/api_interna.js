@@ -1,18 +1,21 @@
-// assets/js/api_interna.js
-
-// Esperamos a que la web cargue
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. Llamamos a TU propia API (El camarero de tu casa)
+﻿// Compruebo que la API interna de productos devuelve datos en JSON.
+document.addEventListener('DOMContentLoaded', function () {
     fetch('index.php?controlador=ControladorProducto&accion=api')
-        .then(response => response.json()) // Convertimos la respuesta a JSON
-        .then(data => {
-            console.log("=== API INTERNA (Tus Productos) ===");
-            console.log("El servidor me ha enviado " + data.length + " productos.");
-            console.log(data); // Muestra todos los productos en la consola
-            
-            // Opcional: Mostrar un aviso visual para el profe
-            // alert('API Interna cargada: Hay ' + data.length + ' productos en base de datos.');
+        .then(function (respuesta) {
+            return respuesta.json();
         })
-        .catch(error => console.error('Error en API Interna:', error));
+        .then(function (productos) {
+            var cajaApi = document.querySelector('#api_interna_resultado');
+
+            if (cajaApi) {
+                cajaApi.textContent = productos.length + ' productos cargados desde la API interna';
+            }
+        })
+        .catch(function () {
+            var cajaApi = document.querySelector('#api_interna_resultado');
+
+            if (cajaApi) {
+                cajaApi.textContent = 'No se ha podido cargar la API interna';
+            }
+        });
 });

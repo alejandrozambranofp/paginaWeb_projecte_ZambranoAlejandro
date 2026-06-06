@@ -1,92 +1,46 @@
-/* --- ESTILOS PÁGINA PRODUCTOS --- */
 
-/* Sidebar: Acordeones */
-.accordion-button:not(.collapsed) {
-    color: #E60012; /* Rojo al abrir */
-    background-color: transparent; /* Quitar fondo azul por defecto */
-    box-shadow: none;
-}
-.accordion-button:focus {
-    box-shadow: none;
-    border-color: rgba(0,0,0,.125);
+
+.filtro_productos {
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    padding: 18px;
+    background-color: #ffffff;
 }
 
-/* Sidebar: Caja Roja Ofertas */
-.filter-offer-box {
-    background-color: #E60012; /* Rojo Nintendo */
-}
-/* Switch personalizado dentro de la caja roja */
-.custom-switch {
-    transform: scale(1.3);
-    border: none;
-}
-.custom-switch:checked {
-    background-color: #fff;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23E60012'/%3e%3c/svg%3e");
+.caja_ofertas {
+    background-color: var(--color-rojo);
+    color: #ffffff;
 }
 
-/* Tarjeta de Producto */
-.product-card {
-    transition: transform 0.2s;
-}
-.product-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
-}
-
-/* Barra superior de la tarjeta (Sweet Kingdom) */
-.card-top-bar {
-    background-color: #E60012;
-    font-size: 0.7rem;
-    letter-spacing: 1px;
-}
-
-/* Badge NUEVO */
-.badge-new {
-    font-size: 0.7rem;
-    letter-spacing: 0.5px;
-}
-
-/* Título producto */
 .product-title {
     font-size: 1rem;
-    min-height: 40px; /* Para alinear alturas */
+    min-height: 40px;
     line-height: 1.2;
 }
-.hover-red:hover {
-    color: #E60012 !important;
-}
 
-/* Iconos Alérgenos Redondos */
-.allergen-circle {
-    width: 30px; 
-    height: 30px; 
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 0.8rem;
-}
-.bg-brown { background-color: #8B4513; }
-.bg-orange { background-color: #ff7f50; }
-
-/* Precio */
 .price-text {
     font-size: 1.1rem;
+    color: var(--color-rojo);
+    font-weight: bold;
 }
-.vat-text {
-    font-size: 0.65rem;
+.boton_filtros_movil {
+    display: none;
 }
 
-/* Botón Genérico Nintendo Red */
-.btn-nintendo-red {
-    background-color: #E60012;
-    color: white;
-    border: none;
-    transition: background-color 0.2s;
-}
-.btn-nintendo-red:hover {
-    background-color: #c0000f;
-    color: white;
+@media (max-width: 991px) {
+    .boton_filtros_movil {
+        display: block;
+        width: 100%;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    .filtro_productos {
+        display: none;
+        margin-bottom: 24px;
+    }
+
+    .filtro_productos.filtros_abiertos {
+        display: block;
+    }
 }

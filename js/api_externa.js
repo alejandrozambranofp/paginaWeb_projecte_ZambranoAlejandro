@@ -1,29 +1,40 @@
-// assets/js/api_externa.js
+// Cargo una API externa para mostrar el cambio aproximado de EUR a USD.
+document.addEventListener('DOMContentLoaded', function () {
+    var cajaApi = document.querySelector('#api_externa_resultado');
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Generamos un número aleatorio entre 1 y 151 (Pokémon originales)
-    const idRandom = Math.floor(Math.random() * 151) + 1;
+    if (!cajaApi) {
+        return;
+    }
 
-    // 1. Llamamos a una API EXTERNA (PokeAPI)
-    fetch(`https://pokeapi.co/api/v2/pokemon/${idRandom}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log("=== API EXTERNA (PokeAPI) ===");
-            console.log("He traído a: " + data.name);
-
-            // 2. Buscamos el hueco en el HTML donde ponerlo
-            const contenedor = document.getElementById('mascota-pokemon');
-            
-            if (contenedor) {
-                // 3. Inyectamos el HTML dinámicamente
-                contenedor.innerHTML = `
-                    <div class="text-center mt-3">
-                        <p class="small text-muted mb-0">Visitante Aleatorio (API Externa)</p>
-                        <img src="${data.sprites.front_default}" alt="${data.name}" style="width: 80px;">
-                        <p class="fw-bold text-capitalize" style="font-size: 0.9rem;">${data.name}</p>
-                    </div>
-                `;
+    fetch('https://api.frankfurter.app/latest?from=EUR&to=USD')
+        .then(function (respuesta) {
+            return respuesta.json();
+        })
+        .then(function (datos) {
+            if (datos.rates && datos.rates.USD) {
+                cajaApi.textContent = 'API externa: 1 EUR son ' + datos.rates.USD.toFixed(2) + ' USD';
+            } else {
+                cargarApiReserva(cajaApi);
             }
         })
-        .catch(error => console.error('Error en API Externa:', error));
+        .catch(function () {
+            cargarApiReserva(cajaApi);
+        });
 });
+
+function cargarApiReserva(cajaApi) {
+    fetch('https://open.er-api.com/v6/latest/EUR')
+        .then(function (respuesta) {
+            return respuesta.json();
+        })
+        .then(function (datos) {
+            if (datos.rates && datos.rates.USD) {
+                cajaApi.textContent = 'API externa: 1 EUR son ' + datos.rates.USD.toFixed(2) + ' USD';
+            } else {
+                cajaApi.textContent = 'No se ha podido cargar la API externa';
+            }
+        })
+        .catch(function () {
+            cajaApi.textContent = 'No se ha podido cargar la API externa';
+        });
+}

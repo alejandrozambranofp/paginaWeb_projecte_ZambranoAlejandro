@@ -1,8 +1,26 @@
 <div class="container py-5">
     <div class="d-flex align-items-center mb-4">
-        <h2 class="h3 fw-bold mb-0 text-uppercase">Panel de administración</h2>
-        <div class="flex-grow-1 ms-3 border-bottom border-2" style="border-color: #E84988 !important;"></div>
+        <h2 class="h3 fw-bold mb-0 text-uppercase">Panel de administracion</h2>
+        
     </div>
+
+    <?php if (isset($_SESSION['success_admin'])): ?>
+        <div class="alert alert-success">
+            <?php
+                echo htmlspecialchars($_SESSION['success_admin']);
+                unset($_SESSION['success_admin']);
+            ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['error_admin'])): ?>
+        <div class="alert alert-danger">
+            <?php
+                echo htmlspecialchars($_SESSION['error_admin']);
+                unset($_SESSION['error_admin']);
+            ?>
+        </div>
+    <?php endif; ?>
 
     <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
         <li class="nav-item" role="presentation">
@@ -58,14 +76,14 @@
                         </div>
 
                         <div class="col-md-2 d-flex align-items-end">
-                            <button class="btn btn-nintendo-pink w-100" type="submit">Aplicar</button>
+                            <button class="btn btn-rojo w-100" type="submit">Aplicar</button>
                         </div>
                     </form>
                 </div>
             </div>
 
             <div class="card border-0 shadow-sm rounded-4">
-                <div class="card-header bg-pink text-white py-3">
+                <div class="card-header bg-red text-white py-3">
                     <h5 class="mb-0 fw-bold">Todos los pedidos</h5>
                 </div>
                 <div class="card-body p-4">
@@ -79,7 +97,7 @@
                         </select>
                     </div>
                     <div class="table-responsive">
-                        <table class="table align-middle">
+                        <table class="table align-middle tabla_movil">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -99,7 +117,7 @@
                                         <td><?php echo htmlspecialchars($pedido['email']); ?></td>
                                         <td><?php echo htmlspecialchars($pedido['fecha']); ?></td>
                                         <td class="fw-bold admin-money" data-eur="<?php echo $pedido['total']; ?>">
-                                            <?php echo number_format($pedido['total'], 2); ?>€
+                                            <?php echo number_format($pedido['total'], 2); ?>&euro;
                                         </td>
                                         <td>
                                             <form action="index.php?controlador=ControladorAdmin&accion=actualizarPedido" method="POST" class="d-flex gap-2">
@@ -157,7 +175,7 @@
                         </div>
 
                         <div class="col-md-2">
-                            <label class="form-label fw-bold">Categoría</label>
+                            <label class="form-label fw-bold">Categoria</label>
                             <input type="text" name="categoria" class="form-control" value="Postres">
                         </div>
 
@@ -172,7 +190,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label fw-bold">Descripción</label>
+                            <label class="form-label fw-bold">Descripcion</label>
                             <input type="text" name="descripcion" class="form-control">
                         </div>
 
@@ -184,24 +202,24 @@
                         </div>
 
                         <div class="col-12">
-                            <button type="submit" class="btn btn-nintendo-pink rounded-pill px-4">Crear producto</button>
+                            <button type="submit" class="btn btn-rojo rounded-pill px-4">Crear producto</button>
                         </div>
                     </form>
                 </div>
             </div>
 
             <div class="card border-0 shadow-sm rounded-4">
-                <div class="card-header bg-pink text-white py-3">
+                <div class="card-header bg-red text-white py-3">
                     <h5 class="mb-0 fw-bold">Productos</h5>
                 </div>
                 <div class="card-body p-4">
                     <div class="table-responsive">
-                        <table class="table align-middle">
+                        <table class="table align-middle tabla_movil">
                             <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Producto</th>
-                                    <th>Categoría</th>
+                                    <th>Categoria</th>
                                     <th>Precio</th>
                                     <th>Stock</th>
                                     <th>Oferta</th>
@@ -214,9 +232,9 @@
                                         <td><?php echo $producto['id_producto']; ?></td>
                                         <td><?php echo htmlspecialchars($producto['nombre']); ?></td>
                                         <td><?php echo htmlspecialchars($producto['categoria']); ?></td>
-                                        <td><?php echo number_format($producto['precio'], 2); ?>€</td>
+                                        <td><?php echo number_format($producto['precio'], 2); ?>&euro;</td>
                                         <td><?php echo $producto['stock'] ?? 0; ?></td>
-                                        <td><?php echo !empty($producto['oferta']) ? 'Sí' : 'No'; ?></td>
+                                        <td><?php echo !empty($producto['oferta']) ? 'Si' : 'No'; ?></td>
                                         <td class="text-end">
                                             <button type="button"
                                                     class="btn btn-sm btn-outline-dark me-1 btn-editar-producto"
@@ -236,7 +254,7 @@
 
                                             <a href="index.php?controlador=ControladorAdmin&accion=eliminarProducto&id=<?php echo $producto['id_producto']; ?>"
                                             class="btn btn-sm btn-outline-danger"
-                                            onclick="return confirm('¿Eliminar este producto?');">
+                                            onclick="return confirm('Eliminar este producto?');">
                                                 Eliminar
                                             </a>
                                         </td>
@@ -262,12 +280,12 @@
                 </div>
                 <div class="card-body p-4">
                     <div class="table-responsive">
-                        <table class="table align-middle">
+                        <table class="table align-middle tabla_movil">
                             <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Usuario</th>
-                                    <th>Acción</th>
+                                    <th>Accion</th>
                                     <th>Fecha</th>
                                 </tr>
                             </thead>
@@ -283,7 +301,7 @@
 
                                 <?php if (empty($logs)): ?>
                                     <tr>
-                                        <td colspan="4" class="text-center text-muted py-4">Todavía no hay logs.</td>
+                                        <td colspan="4" class="text-center text-muted py-4">Todavia no hay logs.</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
@@ -323,7 +341,7 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label class="form-label fw-bold">Categoría</label>
+                            <label class="form-label fw-bold">Categoria</label>
                             <input type="text" name="categoria" id="edit_categoria" class="form-control">
                         </div>
 
@@ -338,7 +356,7 @@
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label fw-bold">Descripción</label>
+                            <label class="form-label fw-bold">Descripcion</label>
                             <input type="text" name="descripcion" id="edit_descripcion" class="form-control">
                         </div>
 
@@ -353,10 +371,11 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-nintendo-pink rounded-pill px-4">Guardar cambios</button>
+                    <button type="submit" class="btn btn-rojo rounded-pill px-4">Guardar cambios</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 <script src="js/admin_panel.js"></script>
+

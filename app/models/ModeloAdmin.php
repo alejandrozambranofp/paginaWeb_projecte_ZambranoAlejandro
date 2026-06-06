@@ -1,9 +1,5 @@
 <?php
-/**
- * ModeloAdmin.php
- * Consultas y operaciones para el panel de administración.
- */
-
+// Consultas del panel de administracion.
 class ModeloAdmin {
     private $db;
 
@@ -105,7 +101,18 @@ class ModeloAdmin {
         ]);
     }
 
+    public function productoTienePedidos($id_producto) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM detalle_pedido WHERE id_producto = ?");
+        $stmt->execute([$id_producto]);
+
+        return $stmt->fetchColumn() > 0;
+    }
+
     public function eliminarProducto($id_producto) {
+        if ($this->productoTienePedidos($id_producto)) {
+            return false;
+        }
+
         $stmt = $this->db->prepare("DELETE FROM producto WHERE id_producto = ?");
         return $stmt->execute([$id_producto]);
     }

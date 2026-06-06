@@ -1,16 +1,29 @@
-/*estilo_carrito.css*/
-    .text-pink { color: #E84988 !important; }
-    .bg-pink { background-color: #E84988 !important; }
-    .btn-nintendo-pink {
-        background-color: #E84988;
-        color: white;
-        border: none;
-        font-weight: bold;
-        transition: all 0.2s;
+
+
+.resumen_pedido {
+    margin-top: 0;
+}
+
+.carrito_botones {
+    gap: 12px;
+}
+
+.table th {
+    border: none;
+}
+
+@media (max-width: 768px) {
+    .resumen_pedido {
+        margin-top: 24px;
     }
-    .btn-nintendo-pink:hover {
-        background-color: #d13a7a;
-        color: white;
-        transform: scale(1.02);
+
+    .carrito_botones {
+        flex-direction: column;
     }
-    .table th { border: none; }
+
+    .carrito_botones .btn,
+    .carrito_botones a {
+        width: 100%;
+        text-align: center;
+    }
+}

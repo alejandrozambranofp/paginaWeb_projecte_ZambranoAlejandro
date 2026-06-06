@@ -1,4 +1,4 @@
-class AdminPanel {
+﻿class AdminPanel {
     constructor() {
         this.tabKey = 'sweet_admin_tab';
         this.productRows = Array.from(document.querySelectorAll('#productos tbody tr'));
@@ -97,6 +97,7 @@ class AdminPanel {
                 .reduce((count, visible) => visible ? count + 1 : count, 0);
         });
     }
+
     bindCurrencySelect() {
         const select = document.getElementById('currencySelect');
         const moneyCells = Array.from(document.querySelectorAll('.admin-money'));
@@ -104,15 +105,7 @@ class AdminPanel {
         if (!select || moneyCells.length === 0) {
             return;
         }
-
-        const symbols = {
-            EUR: '€',
-            USD: '$',
-            GBP: '£',
-            JPY: '¥'
-        };
-
-        const updateMoney = () => {
+const updateMoney = () => {
             const option = select.options[select.selectedIndex];
             const currency = select.value;
             const rate = Number(option.dataset.rate || 1);
@@ -122,7 +115,7 @@ class AdminPanel {
                 const converted = eur * rate;
                 const decimals = currency === 'JPY' ? 0 : 2;
 
-                cell.textContent = `${converted.toFixed(decimals)}${symbols[currency]}`;
+                cell.textContent = `${converted.toFixed(decimals)} ${currency}`;
             });
 
             localStorage.setItem('sweet_admin_currency', currency);

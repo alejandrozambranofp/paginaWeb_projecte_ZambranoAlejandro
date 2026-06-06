@@ -1,8 +1,5 @@
 <?php
-/**
- * ControladorAdmin.php
- * Gestiona el panel de administración.
- */
+// Controlador del panel de administracion.
 
 require_once 'app/models/ModeloAdmin.php';
 
@@ -106,11 +103,17 @@ class ControladorAdmin {
         $id_producto = (int) ($_GET['id'] ?? 0);
 
         if ($id_producto > 0) {
-            $this->modelo->eliminarProducto($id_producto);
-            $this->modelo->registrarLog(
-                $_SESSION['usuario_logueado']['email'],
-                "Producto eliminado con ID " . $id_producto
-            );
+            $eliminado = $this->modelo->eliminarProducto($id_producto);
+
+            if ($eliminado) {
+                $_SESSION['success_admin'] = "Producto eliminado correctamente.";
+                $this->modelo->registrarLog(
+                    $_SESSION['usuario_logueado']['email'],
+                    "Producto eliminado con ID " . $id_producto
+                );
+            } else {
+                $_SESSION['error_admin'] = "No se puede eliminar un producto que ya aparece en pedidos. Puedes poner su stock a 0 si no quieres venderlo.";
+            }
         }
 
         header("Location: index.php?controlador=ControladorAdmin&accion=panel");

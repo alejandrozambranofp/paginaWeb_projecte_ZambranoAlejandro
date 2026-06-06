@@ -1,9 +1,5 @@
 <?php
-/**
- * ModeloProducto.php
- * Gestiona las consultas de productos en la base de datos.
- */
-
+// Modelo con las consultas de productos.
 class ModeloProducto {
     private $db;
 
@@ -11,29 +7,26 @@ class ModeloProducto {
         $this->db = $db_conn;
     }
 
-    /**
-     * Obtiene todos los productos
-     */
     public function obtenerTodos() {
-        $stmt = $this->db->prepare("SELECT * FROM producto");
+        $stmt = $this->db->prepare("SELECT * FROM producto ORDER BY id_producto ASC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Obtiene productos por categoría
-     */
+    public function obtenerPorId($id_producto) {
+        $stmt = $this->db->prepare("SELECT * FROM producto WHERE id_producto = ?");
+        $stmt->execute([$id_producto]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function obtenerPorCategoria($categoria) {
-        $stmt = $this->db->prepare("SELECT * FROM producto WHERE categoria = ?");
+        $stmt = $this->db->prepare("SELECT * FROM producto WHERE categoria = ? ORDER BY id_producto ASC");
         $stmt->execute([$categoria]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * BUSCADOR: Busca productos por nombre o descripción
-     */
     public function buscarProductos($termino) {
-        $sql = "SELECT * FROM producto WHERE nombre LIKE :termino OR descripcion LIKE :termino";
+        $sql = "SELECT * FROM producto WHERE nombre LIKE :termino OR descripcion LIKE :termino ORDER BY id_producto ASC";
         $stmt = $this->db->prepare($sql);
         $t = "%" . $termino . "%";
         $stmt->bindParam(':termino', $t);
@@ -41,59 +34,108 @@ class ModeloProducto {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * NUEVA FUNCIÓN: FILTRO AVANZADO (Para el sidebar)
-     * Recibe un array con las opciones seleccionadas
-     */
+    public function obtenerPorFranquicia($franquicia) {
+        // Algunos packs se anaden por id porque son productos especiales de esa franquicia.
+        $idsExtra = [];
+
+        if ($franquicia === 'Mario') {
+            $idsExtra = [9];
+        } elseif ($franquicia === 'Zelda') {
+            $idsExtra = [11];
+        }
+
+        $sql = "SELECT * FROM producto
+                WHERE nombre LIKE :texto OR descripcion LIKE :texto OR franquicia LIKE :texto";
+
+        if (!empty($idsExtra)) {
+            $sql .= " OR id_producto IN (" . implode(',', $idsExtra) . ")";
+        }
+
+        $sql .= " ORDER BY id_producto ASC";
+
+        $stmt = $this->db->prepare($sql);
+        $texto = "%" . $franquicia . "%";
+        $stmt->bindParam(':texto', $texto);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function obtenerEspeciales() {
+        // Productos que se muestran en la pagina de especiales.
+        $ids = [8, 2, 6];
+        $marcas = implode(',', array_fill(0, count($ids), '?'));
+        $stmt = $this->db->prepare("SELECT * FROM producto WHERE id_producto IN ($marcas) ORDER BY FIELD(id_producto, 8, 2, 6)");
+        $stmt->execute($ids);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function obtenerNovedades() {
+        $stmt = $this->db->prepare("SELECT * FROM producto ORDER BY id_producto DESC LIMIT 4");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function obtenerMasComprados() {
+        // Sumo las cantidades de detalle_pedido para saber que productos se han vendido mas.
+        $sql = "SELECT p.*, SUM(dp.cantidad) AS total_vendido
+                FROM producto p
+                INNER JOIN detalle_pedido dp ON p.id_producto = dp.id_producto
+                GROUP BY p.id_producto
+                ORDER BY total_vendido DESC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function obtenerProductosFiltrados($filtros) {
+        // La consulta se va completando segun los filtros recibidos.
         $sql = "SELECT * FROM producto WHERE 1=1";
         $params = [];
 
-        // --- Filtro por Franquicia ---
-        // Si te da error aquí también, es que no tienes columna 'franquicia'
         if (!empty($filtros['franquicia'])) {
-            $sql .= " AND franquicia = :franquicia";
-            $params[':franquicia'] = $filtros['franquicia'];
+            $sql .= " AND (franquicia LIKE :franquicia OR nombre LIKE :franquicia OR descripcion LIKE :franquicia)";
+            $params[':franquicia'] = "%" . $filtros['franquicia'] . "%";
         }
 
-        // --- Filtro por Tipo ---
         if (!empty($filtros['tipo'])) {
             $sql .= " AND categoria = :categoria";
             $params[':categoria'] = $filtros['tipo'];
         }
 
-        // --- Filtro de Ofertas (CORREGIDO) ---
         if (!empty($filtros['ofertas'])) {
-            $sql .= " AND oferta = 1";
+            $sql .= " AND (oferta = 1 OR categoria = 'Ofertas')";
         }
 
-        // --- Filtro de Agotados ---
-        // Asumo que tienes una columna 'stock'. Si no, comenta esto también.
         if (!empty($filtros['agotados'])) {
-             $sql .= " AND stock > 0";
+            $sql .= " AND stock > 0";
         }
 
-        // --- Filtro de Rango de Precio ---
         if (!empty($filtros['rango_precio'])) {
-            $rango = explode('-', $filtros['rango_precio']);
-            if (count($rango) === 2) {
-                $sql .= " AND precio >= :min AND precio <= :max";
-                $params[':min'] = $rango[0];
-                $params[':max'] = $rango[1];
-            } elseif ($filtros['rango_precio'] == '20-50') {
-                 $sql .= " AND precio >= :min AND precio <= :max";
-                 $params[':min'] = 20;
-                 $params[':max'] = 50;
+            if ($filtros['rango_precio'] === '20-999') {
+                $sql .= " AND precio >= :min";
+                $params[':min'] = 20;
+            } else {
+                $rango = explode('-', $filtros['rango_precio']);
+                if (count($rango) === 2) {
+                    $sql .= " AND precio >= :min AND precio <= :max";
+                    $params[':min'] = $rango[0];
+                    $params[':max'] = $rango[1];
+                }
             }
         }
 
-        // --- Ordenamiento ---
         if (!empty($filtros['orden'])) {
-            if ($filtros['orden'] == 'barato') {
+            if ($filtros['orden'] === 'nuevo') {
+                $sql .= " ORDER BY id_producto DESC";
+            } elseif ($filtros['orden'] === 'barato') {
                 $sql .= " ORDER BY precio ASC";
-            } elseif ($filtros['orden'] == 'caro') {
+            } elseif ($filtros['orden'] === 'caro') {
                 $sql .= " ORDER BY precio DESC";
+            } else {
+                $sql .= " ORDER BY id_producto ASC";
             }
+        } else {
+            $sql .= " ORDER BY id_producto ASC";
         }
 
         $stmt = $this->db->prepare($sql);

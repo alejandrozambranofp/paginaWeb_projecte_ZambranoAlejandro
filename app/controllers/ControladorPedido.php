@@ -1,9 +1,5 @@
 <?php
-/**
- * ControladorPedido.php
- * Gestiona la finalización de la compra y el registro en la base de datos.
- */
-
+// Controlador para confirmar compras y guardar pedidos.
 class ControladorPedido {
     private $db;
 
@@ -33,7 +29,7 @@ class ControladorPedido {
             $productosPedido = [];
 
             foreach ($_SESSION['carrito'] as $id_producto => $cantidad) {
-                $stmt = $this->db->prepare("SELECT id_producto, nombre, precio FROM producto WHERE id_producto = ?");
+                $stmt = $this->db->prepare("SELECT id_producto, precio FROM producto WHERE id_producto = ?");
                 $stmt->execute([$id_producto]);
                 $producto = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -51,14 +47,11 @@ class ControladorPedido {
             }
 
             if (empty($productosPedido)) {
-                throw new Exception("No se encontraron productos válidos en el carrito.");
+                throw new Exception("No se encontraron productos validos en el carrito.");
             }
 
-            $stmtPedido = $this->db->prepare(
-                "INSERT INTO pedido (id_cliente, total, estado) VALUES (?, ?, ?)"
-            );
+            $stmtPedido = $this->db->prepare("INSERT INTO pedido (id_cliente, total, estado) VALUES (?, ?, ?)");
             $stmtPedido->execute([$id_cliente, $total, 'Confirmado']);
-
             $id_pedido = $this->db->lastInsertId();
 
             $stmtDetalle = $this->db->prepare(
@@ -76,9 +69,7 @@ class ControladorPedido {
                 ]);
             }
 
-            $stmtLog = $this->db->prepare(
-                "INSERT INTO logs (usuario, accion) VALUES (?, ?)"
-            );
+            $stmtLog = $this->db->prepare("INSERT INTO logs (usuario, accion) VALUES (?, ?)");
             $stmtLog->execute([
                 $_SESSION['usuario_logueado']['email'],
                 "Pedido confirmado con ID " . $id_pedido
@@ -87,11 +78,10 @@ class ControladorPedido {
             $this->db->commit();
 
             $_SESSION['carrito'] = [];
-            $_SESSION['mensaje_exito_compra'] = "¡Gracias por tu compra! Tu pedido #" . $id_pedido . " ha sido procesado con éxito.";
+            $_SESSION['mensaje_exito_compra'] = "Gracias por tu compra. Tu pedido #" . $id_pedido . " ha sido procesado correctamente.";
 
             $view = 'compra_exitosa.php';
             require_once 'app/views/inicio.php';
-
         } catch (Exception $e) {
             if ($this->db->inTransaction()) {
                 $this->db->rollBack();

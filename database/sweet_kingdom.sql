@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Temps de generació: 30-05-2026 a les 10:21:31
+-- Temps de generació: 06-06-2026 a les 16:06:23
 -- Versió del servidor: 10.4.32-MariaDB
 -- Versió de PHP: 8.2.12
 
@@ -47,7 +47,10 @@ INSERT INTO `cliente` (`id_cliente`, `nombre`, `email`, `password`, `rol`) VALUE
 (31, 'Alejandrio', 'zalejandro048@gmail.com', '$2y$10$fDS36g9EJbHFp', 'usuario'),
 (32, 'Alejandro', 'ttvzambranoalecs@gmail.com', '$2y$10$JL83uslr47typltFRlMAGulHq7.4vopZss8zGoFRcV4Aulr0b.9/y', 'usuario'),
 (33, 'Alejandro', 'joseangle@gmail.com', '$2y$10$D47x5NDEjI0M/HtLUXx.x.RlozxK5CrZJrjUk5gxZiqpzWTpz6ddO', 'usuario'),
-(35, 'Alejandro Zambrano', 'alejandro@gmail.com', '$2y$10$SGScZlCVeB9.ILfqeM.R6uw5X/PZXyqak/jQq8Z9X3TEs7p0oe.U2', 'admin');
+(35, 'Alejandro Zambrano', 'alejandro@gmail.com', '$2y$10$NzoGYMs9EEolLyo9Xv6l3OKgDZM3lE.WtOo19zL6LkvbIAW1DvLV2', 'admin'),
+(36, 'alejandro27', 'ale@gmail.com', '$2y$10$m7QKl5WpUVbQ0tDgDyWMLe6BXAFYcpsisJsnNUU8T9TpwQbA8pwvq', 'usuario'),
+(37, 'link', 'link@gmail.com', '$2y$10$EQFun9ErJxgDheE6b4adzekWMdUuWAeOUVMoQp9iYFkO.nJDCSuO2', 'usuario'),
+(38, 'mario', 'mario@gmail.com', '$2y$10$TtJJvJOyY31Cg5s2R3G4XOk8p3VOsOrQ1MSCtxTxOqzL43ZKRumkS', 'usuario');
 
 -- --------------------------------------------------------
 
@@ -73,7 +76,26 @@ INSERT INTO `detalle_pedido` (`id_detalle`, `id_pedido`, `id_producto`, `cantida
 (2, 1, 2, 1, 25.50, 25.50),
 (3, 1, 10, 1, 18.00, 18.00),
 (4, 1, 9, 1, 15.00, 15.00),
-(5, 1, 11, 1, 29.90, 29.90);
+(5, 1, 11, 1, 29.90, 29.90),
+(6, 2, 4, 1, 6.50, 6.50),
+(7, 3, 7, 1, 3.50, 3.50),
+(8, 3, 2, 1, 25.50, 25.50),
+(9, 3, 3, 1, 4.50, 4.50),
+(10, 3, 11, 1, 29.95, 29.95),
+(11, 4, 1, 1, 22.00, 22.00),
+(12, 4, 2, 1, 25.50, 25.50),
+(13, 4, 5, 1, 3.90, 3.90),
+(14, 5, 1, 3, 22.00, 66.00),
+(15, 5, 6, 2, 8.00, 16.00),
+(16, 5, 7, 1, 3.50, 3.50),
+(17, 5, 8, 1, 7.00, 7.00),
+(18, 5, 5, 1, 3.90, 3.90),
+(19, 5, 10, 1, 18.00, 18.00),
+(20, 5, 9, 1, 15.00, 15.00),
+(21, 5, 4, 1, 6.50, 6.50),
+(22, 5, 3, 1, 4.50, 4.50),
+(23, 6, 16, 1, 221.99, 221.99),
+(24, 7, 16, 1, 221.99, 221.99);
 
 -- --------------------------------------------------------
 
@@ -104,7 +126,26 @@ INSERT INTO `logs` (`id_log`, `usuario`, `accion`, `fecha`) VALUES
 (9, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 1 a Preparando', '2026-05-30 10:02:19'),
 (10, 'alejandro@gmail.com', 'Producto creado: alejandro', '2026-05-30 10:14:07'),
 (11, 'alejandro@gmail.com', 'Producto eliminado con ID 13', '2026-05-30 10:14:15'),
-(12, 'alejandro@gmail.com', 'Producto actualizado con ID 11', '2026-05-30 10:16:42');
+(12, 'alejandro@gmail.com', 'Producto actualizado con ID 11', '2026-05-30 10:16:42'),
+(13, 'ale@gmail.com', 'Pedido confirmado con ID 2', '2026-06-05 18:15:58'),
+(14, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 2 a Preparando', '2026-06-05 18:27:51'),
+(15, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 2 a Enviado', '2026-06-05 18:27:54'),
+(16, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 2 a Entregado', '2026-06-05 18:27:57'),
+(17, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 2 a Cancelado', '2026-06-05 18:27:59'),
+(18, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 2 a Entregado', '2026-06-05 18:28:02'),
+(19, 'link@gmail.com', 'Pedido confirmado con ID 3', '2026-06-05 19:27:00'),
+(20, 'link@gmail.com', 'Pedido confirmado con ID 4', '2026-06-05 19:27:25'),
+(21, 'alejandro@gmail.com', 'Producto creado: alejandro', '2026-06-05 19:28:33'),
+(22, 'alejandro@gmail.com', 'Producto actualizado con ID 14', '2026-06-05 19:29:05'),
+(23, 'alejandro@gmail.com', 'Producto eliminado con ID 14', '2026-06-05 19:29:21'),
+(24, 'alejandro@gmail.com', 'Producto creado: alejandro', '2026-06-05 19:29:41'),
+(25, 'alejandro@gmail.com', 'Producto eliminado con ID 15', '2026-06-05 19:30:20'),
+(26, 'mario@gmail.com', 'Pedido confirmado con ID 5', '2026-06-05 20:39:08'),
+(27, 'alejandro@gmail.com', 'Estado actualizado del pedido ID 5 a Preparando', '2026-06-05 20:39:32'),
+(28, 'alejandro@gmail.com', 'Producto creado: alejandro', '2026-06-05 20:39:51'),
+(29, 'alejandro@gmail.com', 'Pedido confirmado con ID 6', '2026-06-05 20:40:27'),
+(30, 'alejandro@gmail.com', 'Producto actualizado con ID 16', '2026-06-06 15:45:57'),
+(31, 'alejandro@gmail.com', 'Pedido confirmado con ID 7', '2026-06-06 15:46:09');
 
 -- --------------------------------------------------------
 
@@ -125,7 +166,13 @@ CREATE TABLE `pedido` (
 --
 
 INSERT INTO `pedido` (`id_pedido`, `id_cliente`, `fecha`, `total`, `estado`) VALUES
-(1, 35, '2026-05-30 09:07:01', 110.40, 'Preparando');
+(1, 35, '2026-05-30 09:07:01', 110.40, 'Preparando'),
+(2, 36, '2026-06-05 18:15:58', 6.50, 'Entregado'),
+(3, 37, '2026-06-05 19:27:00', 63.45, 'Confirmado'),
+(4, 37, '2026-06-05 19:27:25', 51.40, 'Confirmado'),
+(5, 38, '2026-06-05 20:39:08', 140.40, 'Preparando'),
+(6, 35, '2026-06-05 20:40:27', 221.99, 'Confirmado'),
+(7, 35, '2026-06-06 15:46:09', 221.99, 'Confirmado');
 
 -- --------------------------------------------------------
 
@@ -157,10 +204,11 @@ INSERT INTO `producto` (`id_producto`, `nombre`, `descripcion`, `precio`, `image
 (5, 'Bowser ChocoBrownie', 'Brownie de chocolate negro intenso con un toque picante de canela.', 3.90, 'bowserchocobrownie.png', 'Postres', 0, 10, NULL),
 (6, 'Pikaflan Box', 'Caja con 4 flanes de vainilla con detalles de chocolate y mejillas de cereza.', 8.00, 'pikaflan.png', 'Postres', 0, 10, NULL),
 (7, 'Mario Bros Sweet Roll', 'Rollito dulce relleno de nata y fresas del Reino Champiñón.', 3.50, 'mariosweetrol.png', 'Postres', 0, 10, NULL),
-(8, 'The Legend of Zelda; Tears of the Kingdom Dessert', 'Postre místico con capas de chocolate blanco y té matcha.', 7.00, 'zeldatotkdessert.png', 'Postres', 0, 10, NULL),
+(8, 'The Legend of Zelda: Tears of the Kingdom Dessert', 'Postre místico con capas de chocolate blanco y té matcha.', 7.00, 'zeldatotkdessert.png', 'Postres', 0, 10, NULL),
 (9, 'Power up Dessert Pack', 'Pack variado para recuperar energías: incluye donuts y brownies.', 15.00, 'powerupdessert.png', 'Ofertas', 0, 10, NULL),
 (10, 'Animal Crossing Cozy cupcakes Pack', 'Pack de 6 cupcakes hogareños con decoraciones de frutas.', 18.00, 'animalcrossingcozycupcakes.png', 'Cupcakes', 0, 10, NULL),
-(11, 'Link\'s Sweet Adventure Pack', 'El pack definitivo para aventureros con todos nuestros dulces estrella.', 29.95, 'linksweetadventure.png', 'Ofertas', 0, 10, '');
+(11, 'Link\'s Sweet Adventure Pack', 'El pack definitivo para aventureros con todos nuestros dulces estrella.', 29.95, 'linksweetadventure.png', 'Ofertas', 0, 10, ''),
+(16, 'alejandro', 'Producto creado desde el panel admin', 221.99, 'logo_header.svg', 'Postres', 1, 0, 'mario');
 
 --
 -- Índexs per a les taules bolcades
@@ -207,31 +255,31 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT per la taula `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT per la taula `detalle_pedido`
 --
 ALTER TABLE `detalle_pedido`
-  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT per la taula `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT per la taula `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT per la taula `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Restriccions per a les taules bolcades

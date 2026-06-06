@@ -1,5 +1,5 @@
 <?php
-//ModeloCliente.php
+// Consultas relacionadas con los clientes.
 class ModeloCliente {
     private $db;
 
@@ -7,58 +7,38 @@ class ModeloCliente {
         $this->db = $db_conn;
     }
 
-    /**
-     * Busca un cliente por su email
-     * Este método es vital para el proceso de Login.
-     * Recupera el hash de la contraseña para que el controlador pueda usar password_verify().
-     */
     public function obtenerClientePorEmail($email) {
         try {
-            // Seleccionamos los campos necesarios para la sesión y la verificación de password
             $sql = "SELECT id_cliente, nombre, email, password, rol FROM cliente WHERE email = :email";
-            
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->execute();
-            
+
             $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            // Debug opcional: Si el resultado existe pero el login falla, 
-            // es porque la contraseña en la DB no es un hash de password_hash().
             return $resultado ? $resultado : null;
-
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
             error_log("Error al buscar cliente: " . $e->getMessage());
             return null;
         }
     }
-    
-    /**
-     * Registra un nuevo cliente
-     * El controlador debe pasar el password ya hasheado con password_hash().
-     */
+
     public function registrarCliente($nombre, $email, $password_hash) {
         try {
-            // Insertamos los datos básicos. id_cliente es AUTO_INCREMENT en la base de datos.
-            $sql = "INSERT INTO cliente (nombre, email, password) 
+            $sql = "INSERT INTO cliente (nombre, email, password)
                     VALUES (:nombre, :email, :password)";
-            
             $stmt = $this->db->prepare($sql);
-            
             $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->bindParam(':password', $password_hash, PDO::PARAM_STR);
-            
-            return $stmt->execute();
 
-        } catch(PDOException $e) {
-            // Registro del error real en el log del servidor para depuración
-            error_log("FALLO CRÍTICO EN REGISTRO: " . $e->getMessage());
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Error al registrar cliente: " . $e->getMessage());
             return false;
         }
     }
 
-        public function obtenerClientePorId($id_cliente) {
+    public function obtenerClientePorId($id_cliente) {
         try {
             $sql = "SELECT id_cliente, nombre, email FROM cliente WHERE id_cliente = :id_cliente";
             $stmt = $this->db->prepare($sql);
@@ -76,18 +56,15 @@ class ModeloCliente {
         try {
             if (!empty($password)) {
                 $password_hash = password_hash($password, PASSWORD_DEFAULT);
-
-                $sql = "UPDATE cliente 
-                        SET nombre = :nombre, email = :email, password = :password 
+                $sql = "UPDATE cliente
+                        SET nombre = :nombre, email = :email, password = :password
                         WHERE id_cliente = :id_cliente";
-
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':password', $password_hash, PDO::PARAM_STR);
             } else {
-                $sql = "UPDATE cliente 
-                        SET nombre = :nombre, email = :email 
+                $sql = "UPDATE cliente
+                        SET nombre = :nombre, email = :email
                         WHERE id_cliente = :id_cliente";
-
                 $stmt = $this->db->prepare($sql);
             }
 
@@ -104,11 +81,10 @@ class ModeloCliente {
 
     public function obtenerPedidosCliente($id_cliente) {
         try {
-            $sql = "SELECT id_pedido, fecha, total, estado 
-                    FROM pedido 
-                    WHERE id_cliente = :id_cliente 
+            $sql = "SELECT id_pedido, fecha, total, estado
+                    FROM pedido
+                    WHERE id_cliente = :id_cliente
                     ORDER BY fecha DESC";
-
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id_cliente', $id_cliente, PDO::PARAM_INT);
             $stmt->execute();
@@ -129,7 +105,6 @@ class ModeloCliente {
                     INNER JOIN producto p ON dp.id_producto = p.id_producto
                     WHERE dp.id_pedido = :id_pedido
                     AND pe.id_cliente = :id_cliente";
-
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id_pedido', $id_pedido, PDO::PARAM_INT);
             $stmt->bindParam(':id_cliente', $id_cliente, PDO::PARAM_INT);
@@ -142,3 +117,4 @@ class ModeloCliente {
         }
     }
 }
+?>

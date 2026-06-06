@@ -1,7 +1,7 @@
-/* estilo_login.css */
+
 
 .login-page-container {
-    /* Separación del header y centrado */
+    
     margin-top: 50px; 
     min-height: 80vh; 
     display: flex;
@@ -10,16 +10,16 @@
     padding: 20px 15px;
 }
 
-/* Tarjeta principal */
+
 .card.login-card {
     border-radius: 12px !important;
-    border: 2px solid #e60012 !important; /* Rojo Nintendo */
+    border: 2px solid #e60012 !important; 
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
     overflow: hidden;
     background-color: #ffffff;
 }
 
-/* Cabecera de la tarjeta */
+
 .card-header.login-header {
     background-color: #e60012 !important;
     color: white !important;
@@ -29,7 +29,7 @@
     letter-spacing: 2px;
 }
 
-/* Estilo de los inputs */
+
 .login-input-group .input-group-text {
     background-color: #f8f9fa;
     border-color: #ffb3b3;
@@ -46,7 +46,7 @@
     box-shadow: 0 0 0 0.25rem rgba(230, 0, 18, 0.15) !important;
 }
 
-/* Botón principal estilo Nintendo */
+
 .btn-nintendo {
     background-color: #e60012 !important;
     border-color: #e60012 !important;
@@ -54,7 +54,7 @@
     font-weight: bold;
     text-transform: uppercase;
     transition: all 0.3s ease;
-    border-radius: 50px; /* Bordes redondeados tipo consola */
+    border-radius: 50px; 
 }
 
 .btn-nintendo:hover {
@@ -63,7 +63,7 @@
     box-shadow: 0 6px 12px rgba(230, 0, 18, 0.3);
 }
 
-/* Enlaces secundarios */
+
 .login-link-secondary {
     color: #e60012 !important;
     font-weight: 700;

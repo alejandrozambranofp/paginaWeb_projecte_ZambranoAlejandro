@@ -1,13 +1,8 @@
-<div class="container my-5 text-center">
-    <div class="py-5">
-        <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
-        <h2 class="mt-4 fw-bold">¡PEDIDO CONFIRMADO!</h2>
-        <p class="fs-5 text-muted">Gracias por confiar en Sweet Kingdom. Estamos preparando tus dulces con mucho amor.</p>
-        
-        <div class="mt-5">
-            <a href="index.php" class="btn btn-nintendo-pink btn-lg rounded-pill px-5">
-                VOLVER A LA TIENDA
-            </a>
-        </div>
+<div class="container py-5 text-center">
+    <div class="card border-0 shadow-sm p-5 rounded-4 mx-auto" style="max-width: 620px;">
+        <i class="bi bi-check-circle-fill text-red display-1"></i>
+        <h2 class="mt-4 fw-bold">Pedido confirmado</h2>
+        <p class="text-muted mb-4">Gracias por tu compra. Tu pedido se ha guardado correctamente.</p>
+        <a href="index.php?controlador=ControladorUsuario&accion=perfil" class="btn btn-rojo btn-lg rounded-pill px-5">Ver mi pedido</a>
     </div>
 </div>

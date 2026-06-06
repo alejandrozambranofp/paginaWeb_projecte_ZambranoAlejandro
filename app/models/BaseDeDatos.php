@@ -1,5 +1,5 @@
 <?php
-//BaseDeDatos.php
+// Conexion principal a la base de datos.
 class BaseDeDatos {
     private static $conexion = null;
     private static $host = "localhost";
@@ -14,9 +14,10 @@ class BaseDeDatos {
                 self::$conexion = new PDO($dsn, self::$usuario, self::$contrasena);
                 self::$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {
-                die("Error de Conexión a la Base de Datos: " . $e->getMessage());
+                die("Error de conexion a la base de datos: " . $e->getMessage());
             }
         }
+
         return self::$conexion;
     }
 }
