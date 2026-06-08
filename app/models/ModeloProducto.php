@@ -35,28 +35,8 @@ class ModeloProducto {
     }
 
     public function obtenerPorFranquicia($franquicia) {
-        // Algunos packs se anaden por id porque son productos especiales de esa franquicia.
-        $idsExtra = [];
-
-        if ($franquicia === 'Mario') {
-            $idsExtra = [9];
-        } elseif ($franquicia === 'Zelda') {
-            $idsExtra = [11];
-        }
-
-        $sql = "SELECT * FROM producto
-                WHERE nombre LIKE :texto OR descripcion LIKE :texto OR franquicia LIKE :texto";
-
-        if (!empty($idsExtra)) {
-            $sql .= " OR id_producto IN (" . implode(',', $idsExtra) . ")";
-        }
-
-        $sql .= " ORDER BY id_producto ASC";
-
-        $stmt = $this->db->prepare($sql);
-        $texto = "%" . $franquicia . "%";
-        $stmt->bindParam(':texto', $texto);
-        $stmt->execute();
+        $stmt = $this->db->prepare("SELECT * FROM producto WHERE franquicia = ? ORDER BY id_producto ASC");
+        $stmt->execute([$franquicia]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
